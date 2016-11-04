@@ -1,21 +1,40 @@
+import APICommon from './common';
+
 // API Users static class
 export default class ApiUsers {
+    // login
+    static login(action) {
+        return APICommon.call('?action=login', 'POST', {
+            username: action.username,
+            password: action.password,
+        }).then(data => {
+            return {
+                jwt_token: data.result,
+                error: data.error,
+            }
+        });
+    }
+
+    // reset all users
+    static reset(action) {
+        return APICommon.call('?action=reset', 'GET').then(data => {
+            return {
+                success: data.success,
+                error: data.error,
+            };
+        });
+    }
+
     // get a list of users
     static getList(action) {
-        const timeout = 1000;   // 1 second delay
-        return new Promise(resolve => {
-            setTimeout(() => {
-                // build some dummy users list
-                let users = [];
-                for (let x = 1; x <= 28; x++) {
-                    users.push({
-                        id: x,
-                        username: 'Johny ' + x,
-                        job: 'Employee ' + x,
-                    });
-                }
-                resolve(users);
-            }, timeout);
+        return APICommon.call('?action=login', 'POST', {
+            username: action.username,
+            password: action.password,
+        }).then(data => {
+            return {
+                jwt_token: data.result,
+                error: data.error ? data.error : '',
+            }
         });
     }
 

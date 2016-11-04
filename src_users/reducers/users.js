@@ -3,6 +3,10 @@ export default function suggest(state = {}, action) {
     let new_state = JSON.parse(JSON.stringify(state));
     switch (action.type) {
 
+        // save the users list
+        case 'USERS_LIST_SAVE':
+            return action.users;
+
         // add a user
         case 'USERS_ADD':
             const id = action.id ? action.id : Math.floor(Math.random() * (9999 - 1000 + 1)) + 1000;
@@ -62,11 +66,6 @@ export default function suggest(state = {}, action) {
                 id: 0,
                 username: '',
             }
-            break;
-
-        // the users list saga fetching was a success
-        case 'USERS_FETCH_LIST_SUCCESS':
-            new_state.list = action.users;
             break;
 
         // initial
