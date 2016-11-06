@@ -27,13 +27,10 @@ export default class ApiUsers {
 
     // get a list of users
     static getList(action) {
-        return APICommon.call('?action=login', 'POST', {
-            username: action.username,
-            password: action.password,
-        }).then(data => {
+        return APICommon.call('?action=list').then(data => {
             return {
-                jwt_token: data.result,
-                error: data.error ? data.error : '',
+                result: data.result,
+                error: data.error,
             }
         });
     }

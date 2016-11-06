@@ -9,44 +9,35 @@ export class UserListElement extends React.Component {
     constructor(props) {
         super(props);
 
-        // bind <this> to the event method
-        this.modalDeleteShow = this.modalDeleteShow.bind(this);
+        // bind <this>
+        this.promptDeleteShow = this.promptDeleteShow.bind(this);
     }
 
     // prop checks
     static get propTypes() {
         return {
-            id: React.PropTypes.number.isRequired,
+            user: React.PropTypes.object.isRequired,
         };
     }
 
     // render
     render() {
-        // get the user element data
-        let user;
-        for (const val of this.props.users) {
-            if (val.id === Number(this.props.id)) {
-                user = val;
-                break;
-            }
-        }
-
-        // render
+        const {user} = this.props;
         return (
             <tr>
-                <td>#{user.id}</td>
+                <td>#{user.user_id}</td>
                 <td>{user.username}</td>
                 <td>{user.job}</td>
                 <td>
-                    <Link to={'user-edit/' + user.id}>
+                    <Link to={'user-edit/' + user.user_id}>
                         <Button bsSize="xsmall">
                             Edit <Glyphicon glyph="edit"/>
                         </Button>
                     </Link>
                 </td>
                 <td>
-                    <Button bsSize="xsmall" className="user-delete" data-id={user.id} data-username={user.username}
-                            onClick={this.modalDeleteShow}>
+                    <Button bsSize="xsmall" className="user-delete" data-id={user.user_id} data-username={user.username}
+                            onClick={this.promptDeleteShow}>
                         Delete <Glyphicon glyph="remove-circle"/>
                     </Button>
                 </td>
@@ -55,11 +46,11 @@ export class UserListElement extends React.Component {
     }
 
     // prompt to delete the user
-    modalDeleteShow(event) {
+    promptDeleteShow(event) {
         const user_id = Number(event.target.dataset.id);
         const username = event.target.dataset.username;
         this.props.dispatch({
-            type: 'USERS_MODAL_DELETE_SHOW',
+            type: 'PROMPT_DELETE_SHOW',
             id: user_id,
             username: username,
         });
@@ -69,8 +60,7 @@ export class UserListElement extends React.Component {
 // export the connected class
 function mapStateToProps(state, own_props) {
     return {
-        users: state.users.list || [],
-        id: own_props.id,
+        user: own_props.user,
     }
 }
 export default connect(mapStateToProps)(UserListElement);

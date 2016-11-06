@@ -3,10 +3,10 @@ import {connect} from "react-redux";
 import {goBack} from "react-router-redux";
 import {Field, reduxForm} from "redux-form";
 import {PageHeader, Form, FormGroup, Col, Button} from "react-bootstrap";
-import FormField from "./common/FormField";
+import FormField from "../common/FormField";
 
-// User add/edit page component
-export class UserEdit extends React.Component {
+// User update page component
+export class Update extends React.Component {
     // current form type: add or edit
     form_type;
 
@@ -67,7 +67,7 @@ export class UserEdit extends React.Component {
 }
 
 // decorate the form component
-const UserEditForm = reduxForm({
+const UpdateForm = reduxForm({
     form: 'user_edit',
     validate: function (values) {
         const errors = {};
@@ -76,7 +76,7 @@ const UserEditForm = reduxForm({
         }
         return errors;
     },
-})(UserEdit);
+})(Update);
 
 // export the connected class
 function mapStateToProps(state, own_props) {
@@ -98,4 +98,4 @@ function mapStateToProps(state, own_props) {
         initialValues: form_data,
     };
 }
-export default connect(mapStateToProps)(UserEditForm);
+export default connect(mapStateToProps)(UpdateForm);

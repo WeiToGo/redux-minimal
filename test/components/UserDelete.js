@@ -1,7 +1,7 @@
 import React from "react";
 import {shallow} from "enzyme";
 import assert from "assert";
-import {UserDelete} from "../../src_users/components/common/UserDelete";
+import {UserDelete} from "../../src_users/components/user/common/Delete";
 
 // unit tests for the UserDelete component
 describe('UserDelete component', () => {

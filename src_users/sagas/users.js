@@ -23,15 +23,15 @@ export function* usersInit(action) {
     if (reset.error) {
         console.log(reset.error);
     }
-console.log('done so far');
-    // call the api to get the users list
-    //const users = yield call(ApiUsers.getList);
+
+    // get the users list
+    const users = yield call(ApiUsers.getList);
 
     // save the users in the state
-    /*yield put({
+    yield put({
         type: 'USERS_LIST_SAVE',
-        users: users,
-    });*/
+        users: users.result,
+    });
 }
 
 // add a user
